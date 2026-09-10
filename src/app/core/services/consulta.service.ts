@@ -25,7 +25,7 @@ export class ConsultaService {
   }
 
   atualizar(id: number, consulta: ConsultaRequest): Observable<Consulta> {
-    return this.http.put<Consulta>(`${this.apiUrl}/{id}`, consulta);
+    return this.http.put<Consulta>(`${this.apiUrl}/${id}`, consulta);
   }
 
   excluir(id: number): Observable<void> {
