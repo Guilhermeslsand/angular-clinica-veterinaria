@@ -1,8 +1,5 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    (click)="voltar()"
-  >
+  <button mat-icon-button (click)="voltar()">
     <mat-icon>arrow_back</mat-icon>
   </button>
 
@@ -25,67 +22,37 @@
           <mat-spinner></mat-spinner>
         </div>
       } @else {
-        <form
-          [formGroup]="form"
-          (ngSubmit)="salvar()"
-        >
+        <form [formGroup]="form" (ngSubmit)="salvar()">
           <mat-form-field appearance="outline">
             <mat-label>ID do animal</mat-label>
-            <input
-              matInput
-              type="number"
-              formControlName="animal_id"
-            >
+            <input matInput type="number" formControlName="animal_id" />
 
             @if (form.controls.animal_id.hasError('required')) {
-              <mat-error>
-                Informe o animal.
-              </mat-error>
+              <mat-error> Informe o animal. </mat-error>
             }
 
             @if (form.controls.animal_id.hasError('min')) {
-              <mat-error>
-                O ID deve ser maior que zero.
-              </mat-error>
+              <mat-error> O ID deve ser maior que zero. </mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Data da consulta</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="data_consulta"
-            >
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            />
+            <input matInput [matDatepicker]="picker" formControlName="data_consulta" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker" />
             <mat-datepicker #picker />
 
-            @if (
-              form.controls.data_consulta.hasError('required')
-            ) {
-              <mat-error>
-                Informe a data da consulta.
-              </mat-error>
+            @if (form.controls.data_consulta.hasError('required')) {
+              <mat-error> Informe a data da consulta. </mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Motivo</mat-label>
-            <input
-              matInput
-              formControlName="motivo"
-              placeholder="Ex.: Consulta de rotina"
-            >
+            <input matInput formControlName="motivo" placeholder="Ex.: Consulta de rotina" />
 
-            @if (
-              form.controls.motivo.hasError('required')
-            ) {
-              <mat-error>
-                Informe o motivo.
-              </mat-error>
+            @if (form.controls.motivo.hasError('required')) {
+              <mat-error> Informe o motivo. </mat-error>
             }
           </mat-form-field>
 
@@ -100,29 +67,15 @@
           </mat-form-field>
 
           <div class="actions">
-            <button
-              type="button"
-              mat-button
-              (click)="voltar()"
-            >
-              Cancelar
-            </button>
+            <button type="button" mat-button (click)="voltar()">Cancelar</button>
 
-            <button
-              type="submit"
-              mat-raised-button
-              color="primary"
-              [disabled]="saving"
-            >
-
+            <button type="submit" mat-raised-button color="primary" [disabled]="saving">
               @if (saving) {
-                <mat-spinner
-                  diameter="20"
-                />
+                <mat-spinner diameter="20" />
               } @else {
                 <mat-icon>save</mat-icon>
-                {{ editando ? 'Atualizar' : 'Salvar' }}
               }
+              <span>{{ editando ? 'Atualizar' : 'Salvar' }}</span>
             </button>
           </div>
         </form>
