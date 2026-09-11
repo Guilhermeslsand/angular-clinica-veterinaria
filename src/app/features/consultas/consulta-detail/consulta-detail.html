@@ -1,0 +1,86 @@
+<mat-toolbar>
+    <button
+        mat-icon-button
+        (click)="voltar()"
+    >
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <span>Detalhes da consulta</span>
+</mat-toolbar>
+
+<main class="container">
+    @if (loading) {
+        <div class="loading">
+            <mat-spinner></mat-spinner>
+        </div>
+    } @else if (consulta){
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{ consulta.animal.nome }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{ formatarData(consulta.data_consulta)}}
+                </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="details">
+                    <div class="detail">
+                        <span class="label">Animal</span>
+                        <span>{{ consulta.animal.nome }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Espécie</span>
+                        <span>{{ consulta.animal.especie }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Raça</span>
+                        <span>{{ consulta.animal.raca }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Idade</span>
+                        <span>{{ consulta.animal.idade }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Data da consulta</span>
+                        <span>{{ formatarData(consulta.data_consulta) }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Motivo</span>
+                        <span>{{ consulta.motivo }}</span>
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">Observações</span>
+                        <span>{{ consulta.observacoes || 'Nenhuma observação.' }}</span>
+                    </div>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button
+                    mat-button
+                    (click)="voltar()"
+                >
+                    Voltar
+                </button>
+
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="editar()"
+                >
+                    <mat-icon>edit</mat-icon>
+                    Editar
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    }
+</main>
