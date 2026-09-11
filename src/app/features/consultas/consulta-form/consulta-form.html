@@ -1,0 +1,132 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    (click)="voltar()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <span>
+    {{ editando ? 'Editar consulta' : 'Nova consulta' }}
+  </span>
+</mat-toolbar>
+
+<main class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ editando ? 'Editar consulta' : 'Cadastrar consulta' }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (loading) {
+        <div class="loading">
+          <mat-spinner></mat-spinner>
+        </div>
+      } @else {
+        <form
+          [formGroup]="form"
+          (ngSubmit)="salvar()"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>ID do animal</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="animal_id"
+            >
+
+            @if (form.controls.animal_id.hasError('required')) {
+              <mat-error>
+                Informe o animal.
+              </mat-error>
+            }
+
+            @if (form.controls.animal_id.hasError('min')) {
+              <mat-error>
+                O ID deve ser maior que zero.
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data da consulta</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="data_consulta"
+            >
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            />
+            <mat-datepicker #picker />
+
+            @if (
+              form.controls.data_consulta.hasError('required')
+            ) {
+              <mat-error>
+                Informe a data da consulta.
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Motivo</mat-label>
+            <input
+              matInput
+              formControlName="motivo"
+              placeholder="Ex.: Consulta de rotina"
+            >
+
+            @if (
+              form.controls.motivo.hasError('required')
+            ) {
+              <mat-error>
+                Informe o motivo.
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Observações</mat-label>
+            <textarea
+              matInput
+              rows="5"
+              formControlName="observacoes"
+              placeholder="Observações da consulta"
+            ></textarea>
+          </mat-form-field>
+
+          <div class="actions">
+            <button
+              type="button"
+              mat-button
+              (click)="voltar()"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="saving"
+            >
+
+              @if (saving) {
+                <mat-spinner
+                  diameter="20"
+                />
+              } @else {
+                <mat-icon>save</mat-icon>
+                {{ editando ? 'Atualizar' : 'Salvar' }}
+              }
+            </button>
+          </div>
+        </form>
+      }
+    </mat-card-content>
+  </mat-card>
+</main>
